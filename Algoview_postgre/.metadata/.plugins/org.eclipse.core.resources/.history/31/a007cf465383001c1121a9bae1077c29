@@ -1,0 +1,14 @@
+package com.startup.in.services;
+
+import com.startup.in.entites.StockInfo;
+
+
+
+public interface IServiceStockInfo {
+
+	public StockInfo saveStockinfo(String stocksym) ;
+	public java.util.List<StockInfo> allStockInfo();
+	
+	
+	
+}

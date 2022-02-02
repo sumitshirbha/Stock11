@@ -1,0 +1,10 @@
+package com.example.demo.Serviceimp;
+
+import java.io.IOException;
+import java.util.Map;
+
+import com.example.demo.dto.Stocks;
+
+public interface IServiceStock {
+	public Stocks stock( String symbol) throws IOException ;
+}

@@ -1,0 +1,5 @@
+package com.startup.in.services;
+
+public interface IServiceStockInfo {
+
+}

@@ -1,0 +1,24 @@
+package com.example.demo.services;
+
+import java.io.IOException;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.Stock;
+
+import yahoofinance.YahooFinance;
+
+
+@Service
+public class StrockServices {
+
+
+	public static Map<String, yahoofinance.Stock> stocks() throws IOException{
+		String[] symbols = new String[] {"INTC", "BABA", "TSLA", "AIR.PA", "YHOO"};
+		System.out.println(YahooFinance.get(symbols));
+		return YahooFinance.get(symbols);
+		
+	}
+	
+}

@@ -1,0 +1,15 @@
+package com.example.demo.dto;
+
+import java.math.BigDecimal;
+
+import org.springframework.data.redis.core.RedisHash;
+
+
+@RedisHash("Stock")
+public class Stock {
+	private String name;
+	private BigDecimal price;
+	private BigDecimal change;
+	private String currency;
+	private BigDecimal bid;
+}

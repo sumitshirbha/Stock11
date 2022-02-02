@@ -1,0 +1,46 @@
+package com.example.demo.impservices;
+
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Service.IServiceStock;
+import com.example.demo.dto.Stocks;
+import com.example.demo.exception.StockNotFoundException;
+import com.example.demo.repository.StocksRepository;
+
+import yahoofinance.YahooFinance;
+import yahoofinance.Stock;
+
+
+
+@Service
+public class StockServices implements IServiceStock {
+
+	@Autowired
+	private StocksRepository  stocksRepository ;
+
+	public  Stocks stocks( String symbol) throws IOException{
+
+		
+		
+		Stock stock =YahooFinance.get(symbol);
+		Stocks stockn =Stocks.builder()
+				.sName(stock.getName())
+				.sChange(stock.getQuote().getChange())
+				.sCurrency(stock.getCurrency())
+				.sId(stock.getQuote().getBid())
+				.sPrice(stock.getQuote().getPrice())
+				.build();
+		stocksRepository.save(stockn);
+		System.out.println(stocksRepository.findAll());
+		return stockn;
+		
+		
+		
+		
+	}
+	
+}

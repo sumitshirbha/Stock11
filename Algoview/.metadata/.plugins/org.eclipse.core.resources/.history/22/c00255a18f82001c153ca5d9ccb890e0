@@ -1,0 +1,13 @@
+package com.example.demo.entites;
+
+import java.math.BigDecimal;
+
+
+
+public class Stock {
+	private String name;
+	private BigDecimal price;
+	private BigDecimal change;
+	private String currency;
+	private BigDecimal bid;
+}

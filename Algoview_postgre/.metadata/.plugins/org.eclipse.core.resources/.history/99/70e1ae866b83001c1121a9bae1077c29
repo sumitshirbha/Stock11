@@ -1,0 +1,5 @@
+package com.startup.in.repositorys;
+
+public class StockQuery {
+
+}

@@ -1,0 +1,8 @@
+package com.startup.in.repositorys;
+
+public class StockQuery {
+	
+	
+	public static final String GETUNIQESYMBOL="select distinct stock_symbol from stock_info";
+
+}

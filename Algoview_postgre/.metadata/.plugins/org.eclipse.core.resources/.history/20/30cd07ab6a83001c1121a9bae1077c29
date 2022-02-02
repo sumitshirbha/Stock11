@@ -1,0 +1,17 @@
+package com.startup.in.repositorys;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.startup.in.entites.StockInfo;
+
+public interface StockInfoRepository extends JpaRepository<StockInfo, Integer>{
+@Query("select  distinct STOCK_SYMBOL from STOCK_INFO;")
+public List<String> UniqueStockSym();	
+	
+	
+	
+	
+}

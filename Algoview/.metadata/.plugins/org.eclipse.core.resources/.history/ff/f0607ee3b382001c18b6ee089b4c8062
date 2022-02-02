@@ -1,0 +1,30 @@
+package com.example.demo.services;
+
+import java.io.IOException;
+
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.Serviceimp.IServiceStock;
+import com.example.demo.dto.Stocks;
+
+import yahoofinance.YahooFinance;
+import yahoofinance.Stock;
+
+
+
+@Service
+public class StockServices implements IServiceStock {
+
+
+	public  Stocks stocks( String symbol) throws IOException{
+
+		Stock stock =YahooFinance.get(symbol);
+		//Category category = Category.builder().categoryName("Black Frame").categoryDescription("Polised with primeum black stain").build();
+		Stocks stockn =Stocks.builder().sName(stock.getName()).sChange(stock.getQuote().getChange()).sCurrency(stock.getCurrency()).sId(stock.getQuote().getBid()).sPrice(stock.getQuote().getPrice()).build();
+		
+		return stockn;
+		
+	}
+	
+}

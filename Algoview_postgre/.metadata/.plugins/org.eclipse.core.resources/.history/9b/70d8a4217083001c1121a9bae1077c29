@@ -1,0 +1,75 @@
+package com.startup.in.impService;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import com.startup.in.entites.StockInfo;
+import com.startup.in.repositorys.StockInfoRepository;
+import com.startup.in.services.IServiceStockInfo;
+
+
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
+
+@Service
+public class ImpServiceStockInfo implements IServiceStockInfo {
+
+	private static final Logger logger = LoggerFactory.getLogger(ImpServiceStockInfo.class);
+	
+	@Autowired
+	private StockInfoRepository stockInfoRepository ;
+	
+	@Scheduled(cron = "0 30 9,15 * * 1,2,3,4,5")
+	public void updateStockPrice() throws IOException {
+	
+		List<StockInfo> stockListdb=	allStockInfo();
+		
+		YahooFinance.get((String[]) stockInfoRepository.UniqueStockSym().toArray());
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	System.out.println("Sheduled");
+	}
+	
+	@Override
+	public StockInfo saveStockinfo(String stocksym) throws IOException {
+		
+		
+		Stock stock =YahooFinance.get(stocksym);
+		StockInfo stockn =StockInfo.builder()
+				.stockName(stock.getName())
+				.stockPrice(Arrays.asList(stock.getQuote().getPrice()))
+				//.(stockPrice.add(stock.getQuote().getPrice()))
+		 	   //.stockPrice(stock.getQuote().getPrice())
+				.stockSymbol(stock.getSymbol())
+				.stockTime(LocalDateTime.now())
+				.build();
+		
+		logger.info("Trying to save stockinfo in database ");
+		System.out.println(stockInfoRepository.UniqueStockSym().toString());
+		return stockInfoRepository.save(stockn);
+	}
+
+	@Override
+	public List<StockInfo> allStockInfo()throws IOException {
+		logger.info("Trying to fetch all stocks from db");
+		return stockInfoRepository.findAll();
+	}
+
+}

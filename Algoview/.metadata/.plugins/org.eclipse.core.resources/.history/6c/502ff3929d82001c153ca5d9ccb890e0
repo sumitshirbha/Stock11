@@ -1,0 +1,8 @@
+package com.example.demo.Serviceimp;
+
+import java.io.IOException;
+import java.util.Map;
+
+public interface IServiceStock {
+	public Map<String, yahoofinance.Stock> stocks() throws IOException ;
+}

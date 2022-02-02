@@ -1,0 +1,24 @@
+package com.startup.in.repositorys;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.startup.in.entites.StockInfo;
+
+public interface StockInfoRepository extends JpaRepository<StockInfo, Integer>{
+	
+	
+@Query(value = StockQuery.GETUNIQESYMBOL,nativeQuery = true)
+public List<String> UniqueStockSym();	
+
+@Query(value = StockQuery.UPDATEPRICE,nativeQuery = true)
+public void updateValue();	
+
+
+	
+	
+	
+	
+}

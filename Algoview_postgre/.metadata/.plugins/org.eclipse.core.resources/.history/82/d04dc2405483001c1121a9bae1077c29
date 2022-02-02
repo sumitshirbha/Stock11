@@ -1,0 +1,37 @@
+package com.startup.in.impService;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.startup.in.entites.StockInfo;
+import com.startup.in.services.IServiceStockInfo;
+
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
+
+public class ImpServiceStockInfo implements IServiceStockInfo {
+
+	@Override
+	public StockInfo saveStockinfo(String stocksym) throws IOException {
+		
+		
+		Stock stock =YahooFinance.get(stocksym);
+		StockInfo stockn =StockInfo.builder()
+				.stockName(stock.getName())
+				
+				.stockPrice(stock.getQuote().getPrice())
+				.stockSymbol(stock.getSymbol())
+				.stockTime(LocalDateTime.now())
+				.build();
+		
+		return null;
+	}
+
+	@Override
+	public List<StockInfo> allStockInfo()throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

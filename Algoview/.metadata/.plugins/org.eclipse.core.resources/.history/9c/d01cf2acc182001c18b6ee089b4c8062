@@ -1,0 +1,16 @@
+package com.example.demo.repository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class StocksRepository {
+public static final String HASH_KEY ="Stock";
+@Autowired
+private RedisTemplate rTemplate;
+
+
+
+
+}

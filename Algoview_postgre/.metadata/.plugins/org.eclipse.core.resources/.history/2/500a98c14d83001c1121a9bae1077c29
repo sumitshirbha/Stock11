@@ -1,0 +1,9 @@
+package com.startup.in.repositorys;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.startup.in.entites.StockInfo;
+
+public class StockInfoRepository extends JpaRepository<StockInfo, Integer>{
+
+}

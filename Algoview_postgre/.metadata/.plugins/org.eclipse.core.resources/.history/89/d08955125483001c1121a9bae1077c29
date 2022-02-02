@@ -1,0 +1,22 @@
+package com.startup.in.impService;
+
+import java.util.List;
+
+import com.startup.in.entites.StockInfo;
+import com.startup.in.services.IServiceStockInfo;
+
+public class ImpServiceStockInfo implements IServiceStockInfo {
+
+	@Override
+	public StockInfo saveStockinfo(String stocksym) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StockInfo> allStockInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

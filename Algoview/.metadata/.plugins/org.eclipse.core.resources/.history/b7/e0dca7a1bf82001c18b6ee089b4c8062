@@ -1,0 +1,25 @@
+package com.example.demo.dto;
+
+import java.math.BigDecimal;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor         
+@NoArgsConstructor			
+@Builder
+@RedisHash("Stock")
+public class Stocks {
+	@Id
+	private BigDecimal sId;
+	private String sName;
+	private BigDecimal sPrice;
+	private BigDecimal sChange;
+	private String sCurrency;
+	
+}

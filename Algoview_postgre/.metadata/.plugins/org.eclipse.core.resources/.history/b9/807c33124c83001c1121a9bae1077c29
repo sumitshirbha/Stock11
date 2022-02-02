@@ -1,0 +1,5 @@
+package com.startup.in.entites;
+
+public class StockInfo {
+
+}
