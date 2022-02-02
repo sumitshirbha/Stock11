@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.startup.in.entites.StockInfo;
-import com.startup.in.exception.StockNotFoundException;
 import com.startup.in.repositorys.StockInfoRepository;
 import com.startup.in.services.IServiceStockInfo;
 
@@ -30,40 +28,26 @@ public class ImpServiceStockInfo implements IServiceStockInfo {
 	@Autowired
 	private StockInfoRepository stockInfoRepository;
 
-	@Scheduled(initialDelay = 10000, fixedDelay = 300000) // (cron = "0 30 9,15 * * 1,2,3,4,5")
+	// (cron = "0 30 9,15 * * 1,2,3,4,5")
+	@Scheduled(initialDelay = 10000, fixedDelay = 300000)
 	public void updateStockPrice() throws IOException {
-		
-		try {
-			
-			
-			if(!(stockInfoRepository.findAll()== null)) {
-			Map<String, Stock> stock1 = YahooFinance
-					.get((String[]) stockInfoRepository.UniqueStockSym().toArray(new String[0]));
-			
-			stock1.values().stream().forEach((stock) -> {
-				stockInfoRepository.updateValue(stock.getQuote().getPrice(), stock.getSymbol(), LocalDateTime.now());
-			});// updates date and time using query	
-			
-			}
-		
-																								
-			
-	
-		
-			throw new StockNotFoundException("No such Symbol for the stock");																							
-			}catch(StockNotFoundException exc) {
-				
-			}
 
+		Map<String, Stock> stock1 = YahooFinance
+				.get((String[]) stockInfoRepository.UniqueStockSym().toArray(new String[0]));
+		// this will give map of symbol of stock as key and object of stock as value
+		stock1.values().stream().forEach((stock) -> {
+			stockInfoRepository
+			.updateValue(stock.getQuote().getPrice(), stock.getSymbol(),LocalDateTime.now());
+		});//updates date and time using query
+		
+
+		System.out.println("Sheduled");
 	}
 
 	@Override
-	public StockInfo saveStockinfo(String stocksym) throws IOException,StockNotFoundException {
+	public StockInfo saveStockinfo(String stocksym) throws IOException {
 
 		Stock stock = YahooFinance.get(stocksym);
-		if(stock==null) {
-			throw new StockNotFoundException("No such Symbol for the stock");	
-		}
 		StockInfo stockn = StockInfo.builder().stockName(stock.getName())
 				// .stockPrice(Arrays.asList(stock.getQuote().getPrice()))
 				// .(stockPrice.add(stock.getQuote().getPrice()))
@@ -73,21 +57,12 @@ public class ImpServiceStockInfo implements IServiceStockInfo {
 		logger.info("Trying to save stockinfo in database ");
 		System.out.println(stockInfoRepository.UniqueStockSym().toString());
 		return stockInfoRepository.save(stockn);
-
 	}
 
 	@Override
-	public Optional<List<StockInfo>> allStockInfo() throws IOException {
+	public List<StockInfo> allStockInfo() throws IOException {
 		logger.info("Trying to fetch all stocks from db");
-
-		Optional<List<StockInfo>> allStock = Optional.ofNullable(stockInfoRepository.findAll());
-
-		if (allStock.isEmpty()) {
-			throw new StockNotFoundException("NO stock are saved");
-		} else {
-			return allStock;
-		}
-
+		return stockInfoRepository.findAll();
 	}
 
 }

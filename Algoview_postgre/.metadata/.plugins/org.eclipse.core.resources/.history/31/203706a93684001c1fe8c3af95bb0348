@@ -34,9 +34,9 @@ public class ImpServiceStockInfo implements IServiceStockInfo {
 	public void updateStockPrice() throws IOException {
 		
 		try {
+			System.out.println(stockInfoRepository.findAll());
 			
-			
-			if(!(stockInfoRepository.findAll()== null)) {
+			if(stockInfoRepository.findAll()== null) {
 			Map<String, Stock> stock1 = YahooFinance
 					.get((String[]) stockInfoRepository.UniqueStockSym().toArray(new String[0]));
 			

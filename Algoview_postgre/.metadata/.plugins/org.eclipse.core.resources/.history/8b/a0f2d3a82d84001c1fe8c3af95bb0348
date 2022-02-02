@@ -34,18 +34,14 @@ public class ControllerStockInfo {
 	public   ResponseEntity<List<StockInfo>> allStockInfo() {
 		try {
 			Optional<List<StockInfo>> stock = serviceStockInfo.allStockInfo();
-//			return cookie.map(c -> ResponseEntity.ok().body(c))
-//	                .orElse(ResponseEntity.notFound().build());
-			return stock.map(c->new ResponseEntity<List<StockInfo>>(c, HttpStatus.CREATED)).orElse(ResponseEntity.notFound().build());
+			if(stock.isPresent()) {
+				//throw new StockNotFoundException();
 			
-//			if(stock.isPresent()) {
-//				//throw new StockNotFoundException();
-//			
-//			return new ResponseEntity<List<StockInfo>>(stock, HttpStatus.CREATED);}
-//			throw new StockNotFoundException();
+			return new ResponseEntity<List<StockInfo>>(stock, HttpStatus.CREATED);}
+			throw new StockNotFoundException();
 			
 		} catch (IOException |StockNotFoundException exc) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock not found", exc);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock not found", exe);
 		}
 
 	}

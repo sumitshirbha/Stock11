@@ -36,7 +36,7 @@ public class ImpServiceStockInfo implements IServiceStockInfo {
 		try {
 			
 			
-			if(!(stockInfoRepository.findAll()== null)) {
+			if(allStockInfo()!=null) {
 			Map<String, Stock> stock1 = YahooFinance
 					.get((String[]) stockInfoRepository.UniqueStockSym().toArray(new String[0]));
 			

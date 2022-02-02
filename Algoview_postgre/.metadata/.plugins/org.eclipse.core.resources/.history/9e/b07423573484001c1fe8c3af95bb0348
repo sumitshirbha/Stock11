@@ -34,21 +34,16 @@ public class ImpServiceStockInfo implements IServiceStockInfo {
 	public void updateStockPrice() throws IOException {
 		
 		try {
-			
-			
-			if(!(stockInfoRepository.findAll()== null)) {
+		
 			Map<String, Stock> stock1 = YahooFinance
 					.get((String[]) stockInfoRepository.UniqueStockSym().toArray(new String[0]));
-			
-			stock1.values().stream().forEach((stock) -> {
-				stockInfoRepository.updateValue(stock.getQuote().getPrice(), stock.getSymbol(), LocalDateTime.now());
-			});// updates date and time using query	
-			
-			}
+	if(stock1!=null) {		
 		
-																								
+			stock1.values().stream().forEach((stock) -> {
+			stockInfoRepository.updateValue(stock.getQuote().getPrice(), stock.getSymbol(), LocalDateTime.now());
+		});// updates date and time using query																						
 			
-	
+	}
 		
 			throw new StockNotFoundException("No such Symbol for the stock");																							
 			}catch(StockNotFoundException exc) {
